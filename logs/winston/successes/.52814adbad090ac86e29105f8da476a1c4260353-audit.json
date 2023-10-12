@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\jahid\\Desktop\\NEXT_WEB_COURSE\\Assignment-9\\metro-g-backend\\logs\\winston\\successes\\.52814adbad090ac86e29105f8da476a1c4260353-audit.json",
+    "files": [
+        {
+            "date": 1697113469727,
+            "name": "C:\\Users\\jahid\\Desktop\\NEXT_WEB_COURSE\\Assignment-9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-12-10-18-success.log",
+            "hash": "9f4b17009a4685536c56ba62d1ed78c4f3985a588084ab3758abf481dc3ace58"
+        }
+    ],
+    "hashType": "sha256"
+}

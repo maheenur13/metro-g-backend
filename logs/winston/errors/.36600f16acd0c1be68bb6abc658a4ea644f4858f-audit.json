@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\jahid\\Desktop\\NEXT_WEB_COURSE\\Assignment-9\\metro-g-backend\\logs\\winston\\errors\\.36600f16acd0c1be68bb6abc658a4ea644f4858f-audit.json",
+    "files": [
+        {
+            "date": 1697113469734,
+            "name": "C:\\Users\\jahid\\Desktop\\NEXT_WEB_COURSE\\Assignment-9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-12-10-18-error.log",
+            "hash": "80c19ec8cfb727c343a4b2d6328be7aaa9f43be2b9c222b43f08daf96e649e5e"
+        }
+    ],
+    "hashType": "sha256"
+}
