@@ -1,4 +1,6 @@
 import express from 'express';
+import { ENUM_USER_ROLE } from '../../../enums/user';
+import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
 import { adminController } from './admin.controller';
 import { adminValidation } from './admin.validation';
@@ -9,13 +11,13 @@ router.get('/', adminController.getAllAdmin);
 router.get('/:id', adminController.getSingleAdmin);
 router.patch(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(adminValidation.updateAdminSchema),
   adminController.updateAdmin
 );
 router.delete(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   adminController.deleteAdmin
 );
 
