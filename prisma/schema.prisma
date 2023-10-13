@@ -10,6 +10,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Define a relation to the user's role
+  role     Role
+  customer Customer?
+  admin    Admin?
+
+  @@map("user")
+}
+
+model Customer {
+  id           String  @id @default(uuid())
+  name         String
+  profileImage String?
+  email        String  @unique
+  contactNo    String?
+  gender       String?
+  bloodGroup   String?
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [userId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("customer")
+}
+
+model Admin {
+  id           String  @id @default(uuid())
+  name         String
+  profileImage String?
+  email        String
+  contactNo    String?
+  gender       String?
+  bloodGroup   String?
+  role         Role
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [userId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admin")
+}
+
 enum WeekDays {
   SATURDAY
   SUNDAY
@@ -18,6 +70,12 @@ enum WeekDays {
   WEDNESDAY
   THURSDAY
   FRIDAY
+}
+
+enum Role {
+  ADMIN
+  SUPER_ADMIN
+  CUSTOMER
 }
 
 enum PaymentStatus {
