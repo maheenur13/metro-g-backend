@@ -4,6 +4,7 @@ import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../shared/prisma';
+import { hashPassword } from '../user/user.utils';
 import {
   IChangePassword,
   ILoginUser,
@@ -36,7 +37,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   }
 
   //create access token and refresh token
-  const { id: userId, role } = isUserExist;
+  const { userId, role } = isUserExist;
 
   const accessToken = jwtHelpers.createToken(
     { id: userId, role },
@@ -74,7 +75,8 @@ const changePassword = async (
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Old Password is incorrect');
   }
 
-  isUserExist.password = newPassword;
+  isUserExist.password = await hashPassword(newPassword);
+  console.log({ isUserExist });
 
   // update password
   await prisma.user.update({
