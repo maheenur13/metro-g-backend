@@ -101,18 +101,19 @@ model Vehicle {
 }
 
 model Service {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
   details     String
   description String
   price       Int
-  rating      Int
+  rating      Int     @default(0)
+  imageUrl    String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  ctegoryId String
-  category  ServiceCategory @relation(fields: [ctegoryId], references: [id])
+  categoryId String
+  category   ServiceCategory @relation(fields: [categoryId], references: [id])
 
   vehicleId String
   vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
