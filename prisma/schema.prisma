@@ -37,8 +37,10 @@ model Customer {
   userId String @unique
   user   User   @relation(fields: [userId], references: [userId])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  bookings  Bookings[]
+  Orders    Orders[]
 
   @@map("customer")
 }
@@ -62,6 +64,66 @@ model Admin {
   @@map("admin")
 }
 
+model ServiceCategory {
+  id           String @id @default(uuid())
+  categoryName String @unique
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  service   Service[]
+
+  @@map("service_category")
+}
+
+model Service {
+  id    String @id @default(uuid())
+  title String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ctegoryId String
+  category  ServiceCategory @relation(fields: [ctegoryId], references: [id])
+  Orders    Orders[]
+
+  @@map("service")
+}
+
+model Bookings {
+  id           String   @id @default(uuid())
+  bookingDate  DateTime @default(now())
+  deliveryDate DateTime
+  price        Int
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("bookings")
+}
+
+model Orders {
+  id        String       @id @default(uuid())
+  orderDate DateTime     @default(now())
+  status    Order_Status
+  price     Int
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("orders")
+}
+
+// model RepairServiceCategory
+
 enum WeekDays {
   SATURDAY
   SUNDAY
@@ -72,10 +134,21 @@ enum WeekDays {
   FRIDAY
 }
 
+enum Order_Status {
+  COMPLETE
+  INCOMPLETE
+}
+
 enum Role {
   ADMIN
   SUPER_ADMIN
   CUSTOMER
+}
+
+enum Fuel {
+  OKTEN
+  DISEL
+  PETROL
 }
 
 enum PaymentStatus {
