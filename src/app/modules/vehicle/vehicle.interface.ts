@@ -12,7 +12,7 @@ export type IVehicleFilterRequest = {
 export type IVehicleDetails = {
   model: string;
   brand: string;
-  cc: string;
+  cc: number;
   weight: number;
   type: VehicleType;
   images: string[];
