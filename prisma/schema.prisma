@@ -41,6 +41,7 @@ model Customer {
   updatedAt DateTime   @updatedAt
   bookings  Bookings[]
   Orders    Orders[]
+  reviews   Review[]
 
   @@map("customer")
 }
@@ -71,33 +72,72 @@ model ServiceCategory {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  service   Service[]
+  services  Service[]
 
   @@map("service_category")
 }
 
+enum VehicleType {
+  CAR
+  BIKE
+}
+
+model Vehicle {
+  id     String      @id @default(uuid())
+  type   VehicleType
+  model  String
+  images String[]
+  cc     Int
+  weight Int?
+  brand  String
+
+  services Service[]
+  bookings Bookings[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("vehicle")
+}
+
 model Service {
-  id    String @id @default(uuid())
-  title String
+  id          String @id @default(uuid())
+  title       String
+  details     String
+  description String
+  price       Int
+  rating      Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   ctegoryId String
   category  ServiceCategory @relation(fields: [ctegoryId], references: [id])
-  Orders    Orders[]
+
+  vehicleId String
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+
+  Orders   Orders[]
+  bookings Bookings[]
+  reviews  Review[]
 
   @@map("service")
 }
 
 model Bookings {
-  id           String   @id @default(uuid())
-  bookingDate  DateTime @default(now())
-  deliveryDate DateTime
-  price        Int
+  id            String        @id @default(uuid())
+  bookingDate   DateTime      @default(now())
+  deliveryDate  DateTime
+  paymentStatus PaymentStatus
 
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id])
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  vehicleId String
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -105,11 +145,26 @@ model Bookings {
   @@map("bookings")
 }
 
+model Review {
+  id      String @id @default(uuid())
+  details String
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("review")
+}
+
 model Orders {
-  id        String       @id @default(uuid())
-  orderDate DateTime     @default(now())
-  status    Order_Status
-  price     Int
+  id        String      @id @default(uuid())
+  orderDate DateTime    @default(now())
+  status    OrderStatus
 
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id])
@@ -135,7 +190,7 @@ enum WeekDays {
   FRIDAY
 }
 
-enum Order_Status {
+enum OrderStatus {
   COMPLETE
   INCOMPLETE
 }
@@ -154,5 +209,5 @@ enum Fuel {
 
 enum PaymentStatus {
   PENDING
-  FULL_PAID
+  PAID
 }
