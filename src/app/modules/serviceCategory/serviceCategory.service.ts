@@ -6,14 +6,17 @@ import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { categoryFilterableFields } from './servicecategory.constant';
-import { ICategoryFilterRequest } from './servicecategory.interface';
+import {
+  ICategoryFilterRequest,
+  IServiceCategory,
+} from './servicecategory.interface';
 
 const createCategory = async (
-  categoryName: string
+  data: IServiceCategory
 ): Promise<ServiceCategory> => {
   const isExist = await prisma.serviceCategory.findFirst({
     where: {
-      categoryName,
+      categoryName: data.categoryName,
     },
   });
 
@@ -22,9 +25,7 @@ const createCategory = async (
   }
 
   return await prisma.serviceCategory.create({
-    data: {
-      categoryName,
-    },
+    data,
   });
 };
 const getAllCategory = async (

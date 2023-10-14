@@ -7,8 +7,8 @@ import { serviceCategoryService } from './serviceCategory.service';
 import { categoryFilterableFields } from './servicecategory.constant';
 
 const createCategory = catchAsync(async (req: Request, res: Response) => {
-  const { categoryName } = req.body;
-  const result = await serviceCategoryService.createCategory(categoryName);
+  const { ...data } = req.body;
+  const result = await serviceCategoryService.createCategory(data);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
