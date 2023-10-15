@@ -14,7 +14,7 @@ import {
 import { isPasswordMatched } from './auth.utils';
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
-  const { id, password } = payload;
+  const { email, password } = payload;
 
   // creating instance of User
   // const user = new User();
@@ -22,7 +22,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   //   const isUserExist = await user.isUserExist(id);
 
   const isUserExist = await prisma.user.findUnique({
-    where: { userId: id },
+    where: { email: email, password: password },
   });
 
   if (!isUserExist) {
@@ -76,7 +76,6 @@ const changePassword = async (
   }
 
   isUserExist.password = await hashPassword(newPassword);
-  console.log({ isUserExist });
 
   // update password
   await prisma.user.update({

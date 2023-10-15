@@ -20,6 +20,7 @@ CREATE TYPE "PaymentStatus" AS ENUM ('PENDING', 'PAID');
 CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -78,8 +79,11 @@ CREATE TABLE "vehicle" (
     "type" "VehicleType" NOT NULL,
     "model" TEXT NOT NULL,
     "images" TEXT[],
-    "cc" TEXT NOT NULL,
-    "weight" INTEGER NOT NULL,
+    "cc" INTEGER NOT NULL,
+    "weight" INTEGER,
+    "brand" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "vehicle_pkey" PRIMARY KEY ("id")
 );
@@ -91,10 +95,11 @@ CREATE TABLE "service" (
     "details" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
-    "rating" INTEGER NOT NULL,
+    "rating" INTEGER NOT NULL DEFAULT 0,
+    "imageUrl" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "ctegoryId" TEXT NOT NULL,
+    "categoryId" TEXT NOT NULL,
     "vehicleId" TEXT NOT NULL,
 
     CONSTRAINT "service_pkey" PRIMARY KEY ("id")
@@ -144,6 +149,9 @@ CREATE TABLE "orders" (
 CREATE UNIQUE INDEX "user_userId_key" ON "user"("userId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "customer_email_key" ON "customer"("email");
 
 -- CreateIndex
@@ -162,7 +170,7 @@ ALTER TABLE "customer" ADD CONSTRAINT "customer_userId_fkey" FOREIGN KEY ("userI
 ALTER TABLE "admin" ADD CONSTRAINT "admin_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "service" ADD CONSTRAINT "service_ctegoryId_fkey" FOREIGN KEY ("ctegoryId") REFERENCES "service_category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "service" ADD CONSTRAINT "service_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "service_category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "service" ADD CONSTRAINT "service_vehicleId_fkey" FOREIGN KEY ("vehicleId") REFERENCES "vehicle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
