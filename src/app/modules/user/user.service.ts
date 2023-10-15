@@ -88,6 +88,7 @@ const createAdmin = async (
     const userData: Partial<User> = {
       role: 'ADMIN',
       password: await hashPassword(password),
+      email: data.email,
     };
 
     const id = await generateAdminId(data.name, 'ADMIN');
@@ -137,6 +138,7 @@ const createSuperAdmin = async (
     const userData: Partial<User> = {
       role: 'SUPER_ADMIN',
       password: await hashPassword(password),
+      email: data.email,
     };
 
     const id = await generateAdminId(data.name, 'SUPER_ADMIN');
