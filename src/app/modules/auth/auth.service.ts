@@ -22,7 +22,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   //   const isUserExist = await user.isUserExist(id);
 
   const isUserExist = await prisma.user.findUnique({
-    where: { email: email, password: password },
+    where: { email: email },
   });
 
   if (!isUserExist) {
