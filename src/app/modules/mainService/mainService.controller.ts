@@ -8,6 +8,7 @@ import { mainService } from './mainService.service';
 
 const getAllServices = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, serviceFilterableFields);
+
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
   const result = await mainService.getAllServices(filters, options);
   sendResponse(res, {

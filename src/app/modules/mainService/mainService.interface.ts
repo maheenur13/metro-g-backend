@@ -5,6 +5,7 @@ export type IServiceFilterRequest = {
   rating?: string;
   categoryId?: string;
   vehicleId?: string;
+  type?: string;
 };
 
 export type IService = {

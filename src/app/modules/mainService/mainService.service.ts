@@ -85,12 +85,14 @@ const getAllServices = async (
 
   if (searchTerm) {
     andConditions.push({
-      OR: serviceFilterableFields.map(field => ({
-        [field]: {
-          contains: searchTerm,
-          mode: 'insensitive',
-        },
-      })),
+      OR: serviceFilterableFields.map(field => {
+        return {
+          [field]: {
+            contains: searchTerm,
+            mode: 'insensitive',
+          },
+        };
+      }),
     });
   }
 
@@ -98,11 +100,25 @@ const getAllServices = async (
     andConditions.push({
       AND: Object.keys(filterData).map(key => {
         if (serviceRelationalFields.includes(key)) {
-          return {
-            [serviceRelationalFieldsMapper[key]]: {
-              id: (filterData as any)[key],
-            },
-          };
+          if (key === 'type') {
+            return {
+              [serviceRelationalFieldsMapper[key]]: {
+                ['some']: {
+                  ['vehicle']: {
+                    [key]: {
+                      equals: (filterData as any)[key],
+                    },
+                  },
+                },
+              },
+            };
+          } else {
+            return {
+              [serviceRelationalFieldsMapper[key]]: {
+                id: (filterData as any)[key],
+              },
+            };
+          }
         } else {
           return {
             [key]: {
@@ -116,11 +132,9 @@ const getAllServices = async (
 
   const whereConditions: Prisma.ServiceWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
-
   const result = await prisma.service.findMany({
     where: whereConditions,
     include: {
-      category: true,
       ServiceVehicle: {
         include: {
           vehicle: true,
