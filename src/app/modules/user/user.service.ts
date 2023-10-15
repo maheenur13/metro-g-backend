@@ -43,6 +43,7 @@ const createCustomer = async (
 
     const id = await generateCustomerId(data.name);
     userData.userId = id;
+    userData.email = data.email;
 
     return await transactionClient.user.create({
       data: userData as User,
