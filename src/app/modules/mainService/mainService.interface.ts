@@ -14,5 +14,9 @@ export type IService = {
   price: number;
   rating: number;
   categoryId: string;
+  vehicleIds: IVehicleRequest[];
+};
+
+export type IVehicleRequest = {
   vehicleId: string;
 };

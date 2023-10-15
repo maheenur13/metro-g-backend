@@ -17,9 +17,16 @@ const mainServiceCreateSchema = z.object({
     categoryId: z.string({
       required_error: 'categoryId required',
     }),
-    vehicleId: z.string({
-      required_error: 'vehicleId required',
-    }),
+    vehicleIds: z.array(
+      z.object(
+        {
+          vehicleId: z.string({ required_error: 'vehicle id required' }),
+        },
+        {
+          required_error: 'vehicle ids required',
+        }
+      )
+    ),
     rating: z.number().optional(),
   }),
 });

@@ -92,8 +92,8 @@ model Vehicle {
   weight Int?
   brand  String
 
-  services Service[]
-  bookings Bookings[]
+  bookings       Bookings[]
+  serviceVehicle ServiceVehicle[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -116,14 +116,28 @@ model Service {
   categoryId String
   category   ServiceCategory @relation(fields: [categoryId], references: [id])
 
-  vehicleId String
-  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
-
-  Orders   Orders[]
+  orders   Orders[]
   bookings Bookings[]
   reviews  Review[]
 
+  ServiceVehicle ServiceVehicle[]
+
   @@map("service")
+}
+
+// Introduce a junction table to represent the many-to-many relationship
+model ServiceVehicle {
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  vehicleId String
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([serviceId, vehicleId])
+  @@map("service_vehicle")
 }
 
 model Bookings {

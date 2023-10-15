@@ -5,14 +5,20 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
+import { asyncForEach } from '../../../shared/utils';
 import {
   serviceFilterableFields,
   serviceRelationalFields,
   serviceRelationalFieldsMapper,
 } from './mainService.constant';
-import { IService, IServiceFilterRequest } from './mainService.interface';
+import {
+  IService,
+  IServiceFilterRequest,
+  IVehicleRequest,
+} from './mainService.interface';
 
-const createService = async (data: Service): Promise<Service> => {
+const createService = async (data: IService): Promise<Service | null> => {
+  const { vehicleIds, ...serviceData } = data;
   const isExist = await prisma.service.findFirst({
     where: {
       OR: [
@@ -27,8 +33,45 @@ const createService = async (data: Service): Promise<Service> => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'service already exist!');
   }
 
-  return await prisma.service.create({
-    data,
+  const createdService = await prisma.$transaction(async transactionClient => {
+    const serviceResult = await transactionClient.service.create({
+      data: serviceData,
+    });
+
+    if (vehicleIds && vehicleIds.length > 0) {
+      await asyncForEach(vehicleIds, async (vehicle: IVehicleRequest) => {
+        await transactionClient.serviceVehicle.create({
+          data: {
+            vehicleId: vehicle.vehicleId,
+            serviceId: serviceResult.id,
+          },
+        });
+      });
+    }
+
+    //   data: {
+    //     serviceId: service.id,
+    //     vehicleId: vehicleId,
+    //   },
+    //   include: {
+    //     service: true,
+    //     vehicle: true,
+    //   },
+    // });
+    return serviceResult;
+  });
+
+  return await prisma.service.findUnique({
+    where: {
+      id: createdService.id,
+    },
+    include: {
+      ServiceVehicle: {
+        include: {
+          vehicle: true,
+        },
+      },
+    },
   });
 };
 const getAllServices = async (
@@ -76,6 +119,14 @@ const getAllServices = async (
 
   const result = await prisma.service.findMany({
     where: whereConditions,
+    include: {
+      category: true,
+      ServiceVehicle: {
+        include: {
+          vehicle: true,
+        },
+      },
+    },
     skip,
     take: limit,
     orderBy:
