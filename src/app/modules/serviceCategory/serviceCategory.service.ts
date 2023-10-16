@@ -5,7 +5,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { categoryFilterableFields } from './servicecategory.constant';
+import { categorySearchableFields } from './servicecategory.constant';
 import {
   ICategoryFilterRequest,
   IServiceCategory,
@@ -36,10 +36,11 @@ const getAllCategory = async (
   const { searchTerm, ...filterData } = filters;
 
   const andConditions = [];
+  console.log(searchTerm);
 
   if (searchTerm) {
     andConditions.push({
-      OR: categoryFilterableFields.map(field => ({
+      OR: categorySearchableFields.map(field => ({
         [field]: {
           contains: searchTerm,
           mode: 'insensitive',
@@ -47,6 +48,8 @@ const getAllCategory = async (
       })),
     });
   }
+
+  console.log(andConditions);
 
   if (Object.keys(filterData).length > 0) {
     andConditions.push({
