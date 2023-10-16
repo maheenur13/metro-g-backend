@@ -97,6 +97,7 @@ CREATE TABLE "service" (
     "price" INTEGER NOT NULL,
     "rating" INTEGER NOT NULL DEFAULT 0,
     "imageUrl" TEXT,
+    "published" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "categoryId" TEXT NOT NULL,
@@ -154,6 +155,39 @@ CREATE TABLE "orders" (
     CONSTRAINT "orders_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "service_feedback" (
+    "id" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "customerId" TEXT NOT NULL,
+    "serviceId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "service_feedback_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "latest_news" (
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "latest_news_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "latest_views_services" (
+    "id" SERIAL NOT NULL,
+    "serviceId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "viewedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "latest_views_services_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "user_userId_key" ON "user"("userId");
 
@@ -207,3 +241,15 @@ ALTER TABLE "orders" ADD CONSTRAINT "orders_customerId_fkey" FOREIGN KEY ("custo
 
 -- AddForeignKey
 ALTER TABLE "orders" ADD CONSTRAINT "orders_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "service_feedback" ADD CONSTRAINT "service_feedback_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "service_feedback" ADD CONSTRAINT "service_feedback_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "latest_views_services" ADD CONSTRAINT "latest_views_services_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "latest_views_services" ADD CONSTRAINT "latest_views_services_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;

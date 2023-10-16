@@ -10,5 +10,5 @@ export const serviceFilterableFields: string[] = [
 export const serviceRelationalFields: string[] = ['categoryId', 'type'];
 export const serviceRelationalFieldsMapper: { [key: string]: string } = {
   categoryId: 'category',
-  type: 'ServiceVehicle',
+  type: 'serviceVehicles',
 };

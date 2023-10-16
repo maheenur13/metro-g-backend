@@ -66,7 +66,7 @@ const createService = async (data: IService): Promise<Service | null> => {
       id: createdService.id,
     },
     include: {
-      ServiceVehicle: {
+      serviceVehicles: {
         include: {
           vehicle: true,
         },
@@ -135,7 +135,7 @@ const getAllServices = async (
   const result = await prisma.service.findMany({
     where: whereConditions,
     include: {
-      ServiceVehicle: {
+      serviceVehicles: {
         include: {
           vehicle: true,
         },
