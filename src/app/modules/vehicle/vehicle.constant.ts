@@ -6,6 +6,10 @@ export const vehicleFilterableFields: string[] = [
   'vehicleType',
   'weight',
 ];
-export const vehicleSearchableFields: string[] = ['model', 'brand'];
+export const vehicleSearchableFields: string[] = [
+  'model',
+  'brand',
+  'vehicleType',
+];
 
 export const vehicleRelationalFields = [];
