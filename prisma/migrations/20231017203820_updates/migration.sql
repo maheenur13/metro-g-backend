@@ -1,7 +1,4 @@
 -- CreateEnum
-CREATE TYPE "VehicleType" AS ENUM ('CAR', 'BIKE');
-
--- CreateEnum
 CREATE TYPE "WeekDays" AS ENUM ('SATURDAY', 'SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY');
 
 -- CreateEnum
@@ -74,9 +71,19 @@ CREATE TABLE "service_category" (
 );
 
 -- CreateTable
+CREATE TABLE "vehicle_type" (
+    "id" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "vehicle_type_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "vehicle" (
     "id" TEXT NOT NULL,
-    "type" "VehicleType" NOT NULL,
+    "vehicleType" TEXT NOT NULL,
     "model" TEXT NOT NULL,
     "images" TEXT[],
     "cc" INTEGER NOT NULL,
@@ -206,11 +213,20 @@ CREATE UNIQUE INDEX "admin_userId_key" ON "admin"("userId");
 -- CreateIndex
 CREATE UNIQUE INDEX "service_category_categoryName_key" ON "service_category"("categoryName");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "vehicle_type_type_key" ON "vehicle_type"("type");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "vehicle_vehicleType_key" ON "vehicle"("vehicleType");
+
 -- AddForeignKey
 ALTER TABLE "customer" ADD CONSTRAINT "customer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "admin" ADD CONSTRAINT "admin_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "vehicle" ADD CONSTRAINT "vehicle_vehicleType_fkey" FOREIGN KEY ("vehicleType") REFERENCES "vehicle_type"("type") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "service" ADD CONSTRAINT "service_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "service_category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
