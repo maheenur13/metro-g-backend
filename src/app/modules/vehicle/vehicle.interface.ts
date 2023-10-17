@@ -1,12 +1,10 @@
-import { VehicleType } from '@prisma/client';
-
 export type IVehicleFilterRequest = {
   searchTerm?: string;
   model?: string;
   brand?: string;
   cc?: string;
   weight?: string;
-  type?: string;
+  vehicleType?: string;
 };
 
 export type IVehicleDetails = {
@@ -14,6 +12,6 @@ export type IVehicleDetails = {
   brand: string;
   cc: number;
   weight: number;
-  type: VehicleType;
+  vehicleType: string;
   images: string[];
 };

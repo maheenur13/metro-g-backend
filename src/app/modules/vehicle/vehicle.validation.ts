@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { VehicleTypesEnum } from './vehicle.constant';
 
 const createVehicleSchema = z.object({
   body: z.object({
@@ -13,7 +12,7 @@ const createVehicleSchema = z.object({
       required_error: 'cc is required',
     }),
     weight: z.string().optional(),
-    type: z.enum([...VehicleTypesEnum] as [string, ...string[]], {
+    vehicleType: z.string({
       required_error: 'vehicle type required',
     }),
   }),
@@ -24,7 +23,7 @@ const updateVehicleSchema = z.object({
     brand: z.string().optional(),
     cc: z.number().optional(),
     weight: z.string().optional(),
-    type: z.enum([...VehicleTypesEnum] as [string, ...string[]]).optional(),
+    vehicleType: z.string().optional(),
   }),
 });
 

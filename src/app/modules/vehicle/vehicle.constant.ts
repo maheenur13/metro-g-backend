@@ -3,9 +3,15 @@ export const vehicleFilterableFields: string[] = [
   'model',
   'brand',
   'cc',
-  'type',
+  'vehicleType',
   'weight',
 ];
-export const vehicleRelationalFields = [];
+export const vehicleSearchableFields: string[] = [
+  'model',
+  'brand',
+  'cc',
+  'vehicleType',
+  'weight',
+];
 
-export const VehicleTypesEnum = ['BIKE', 'CAR'];
+export const vehicleRelationalFields = [];

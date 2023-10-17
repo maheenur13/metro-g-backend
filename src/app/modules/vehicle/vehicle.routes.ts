@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', vehicleController.getAllVehicle);
 router.post(
-  '/create',
+  '/',
   validateRequest(vehicleValidation.createVehicleSchema),
   vehicleController.createVehicle
 );

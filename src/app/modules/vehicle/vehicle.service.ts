@@ -5,7 +5,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { vehicleFilterableFields } from './vehicle.constant';
+import { vehicleSearchableFields } from './vehicle.constant';
 import { IVehicleDetails, IVehicleFilterRequest } from './vehicle.interface';
 
 const createVehicle = async (data: Vehicle): Promise<Vehicle> => {
@@ -34,7 +34,7 @@ const getAllVehicle = async (
 
   if (searchTerm) {
     andConditions.push({
-      OR: vehicleFilterableFields.map(field => ({
+      OR: vehicleSearchableFields.map(field => ({
         [field]: {
           contains: searchTerm,
           mode: 'insensitive',
