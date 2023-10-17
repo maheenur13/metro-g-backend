@@ -6,6 +6,7 @@ import { mainServiceRoutes } from '../modules/mainService/mainService.routes';
 import { serviceCategoryRoutes } from '../modules/serviceCategory/serviceCategory.routes';
 import { UserRoutes } from '../modules/user/user.routes';
 import { vehicleRoutes } from '../modules/vehicle/vehicle.routes';
+import { vehicleTypeRoutes } from '../modules/vehicleType/vehicleType.routes';
 
 const router = express.Router();
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
   {
     path: '/vehicles',
     route: vehicleRoutes,
+  },
+  {
+    path: '/vehicle-types',
+    route: vehicleTypeRoutes,
   },
 ];
 
