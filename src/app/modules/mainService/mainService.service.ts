@@ -154,6 +154,7 @@ const getAllServices = async (
           vehicle: true,
         },
       },
+      category: true,
     },
     skip,
     take: limit,
@@ -190,6 +191,13 @@ const getSingleService = async (id: string): Promise<Service | null> => {
   return await prisma.service.findUnique({
     where: {
       id,
+    },
+    include: {
+      serviceVehicles: {
+        include: {
+          vehicle: true,
+        },
+      },
     },
   });
 };
