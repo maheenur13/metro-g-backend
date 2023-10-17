@@ -106,16 +106,28 @@ const deleteVehicle = async (id: string): Promise<Vehicle | null> => {
       id,
     },
   });
+  console.log({ isExist });
 
   if (!isExist) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'vehicle does not exist!');
   }
+  const deletedService = await prisma.$transaction(async transactionClient => {
+    const serviceResult = await transactionClient.serviceVehicle.deleteMany({
+      where: {
+        vehicleId: isExist.id,
+      },
+    });
 
-  return await prisma.vehicle.delete({
-    where: {
-      id,
-    },
+    return serviceResult;
   });
+  return (
+    deletedService &&
+    (await prisma.vehicle.delete({
+      where: {
+        id,
+      },
+    }))
+  );
 };
 const updateVehicle = async (
   id: string,
