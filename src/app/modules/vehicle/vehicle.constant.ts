@@ -10,7 +10,6 @@ export const vehicleSearchableFields: string[] = [
   'model',
   'brand',
   'cc',
-  'vehicleType',
   'weight',
 ];
 

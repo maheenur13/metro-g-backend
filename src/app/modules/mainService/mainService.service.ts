@@ -7,9 +7,9 @@ import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
 import {
-  serviceFilterableFields,
   serviceRelationalFields,
   serviceRelationalFieldsMapper,
+  serviceSearchableFields,
 } from './mainService.constant';
 import {
   IService,
@@ -85,13 +85,27 @@ const getAllServices = async (
 
   if (searchTerm) {
     andConditions.push({
-      OR: serviceFilterableFields.map(field => {
-        return {
-          [field]: {
-            contains: searchTerm,
-            mode: 'insensitive',
-          },
-        };
+      OR: serviceSearchableFields.map(field => {
+        if (field === 'vehicleType') {
+          return {
+            ['serviceVehicles']: {
+              ['some']: {
+                ['vehicle']: {
+                  [field]: {
+                    equals: searchTerm,
+                  },
+                },
+              },
+            },
+          };
+        } else {
+          return {
+            [field]: {
+              contains: searchTerm,
+              mode: 'insensitive',
+            },
+          };
+        }
       }),
     });
   }
@@ -100,7 +114,7 @@ const getAllServices = async (
     andConditions.push({
       AND: Object.keys(filterData).map(key => {
         if (serviceRelationalFields.includes(key)) {
-          if (key === 'type') {
+          if (key === 'vehicleType') {
             return {
               [serviceRelationalFieldsMapper[key]]: {
                 ['some']: {

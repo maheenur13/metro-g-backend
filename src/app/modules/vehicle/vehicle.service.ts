@@ -34,12 +34,16 @@ const getAllVehicle = async (
 
   if (searchTerm) {
     andConditions.push({
-      OR: vehicleSearchableFields.map(field => ({
-        [field]: {
-          contains: searchTerm,
-          mode: 'insensitive',
-        },
-      })),
+      OR: vehicleSearchableFields.map(field => {
+        console.log({ field });
+
+        return {
+          [field]: {
+            contains: searchTerm,
+            mode: 'insensitive',
+          },
+        };
+      }),
     });
   }
 

@@ -4,11 +4,10 @@ export const serviceFilterableFields: string[] = [
   'price',
   'rating',
   'categoryId',
-  'vehicleId',
   'vehicleType',
 ];
 
-export const serviceSearchableFields = ['title', 'price', 'rating'];
+export const serviceSearchableFields = ['title', 'vehicleType'];
 export const serviceRelationalFields: string[] = ['categoryId', 'vehicleType'];
 export const serviceRelationalFieldsMapper: { [key: string]: string } = {
   categoryId: 'category',
