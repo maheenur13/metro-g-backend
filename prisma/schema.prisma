@@ -95,7 +95,7 @@ model VehicleType {
 model Vehicle {
   id String @id @default(uuid())
 
-  vehicleType String      @unique
+  vehicleType String
   type        VehicleType @relation(fields: [vehicleType], references: [type])
 
   model  String
