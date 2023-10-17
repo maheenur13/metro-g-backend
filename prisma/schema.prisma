@@ -80,14 +80,24 @@ model ServiceCategory {
   @@map("service_category")
 }
 
-enum VehicleType {
-  CAR
-  BIKE
+model VehicleType {
+  id   String @id @default(uuid())
+  type String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vehicles Vehicle[]
+
+  @@map("vehicle_type")
 }
 
 model Vehicle {
-  id     String      @id @default(uuid())
-  type   VehicleType
+  id String @id @default(uuid())
+
+  vehicleType String      @unique
+  type        VehicleType @relation(fields: [vehicleType], references: [type])
+
   model  String
   images String[]
   cc     Int
