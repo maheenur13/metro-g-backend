@@ -9,6 +9,7 @@ export type IServiceFilterRequest = {
 };
 
 export type IService = {
+  id: string;
   title: string;
   details: string;
   description: string;

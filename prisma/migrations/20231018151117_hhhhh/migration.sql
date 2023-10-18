@@ -216,9 +216,6 @@ CREATE UNIQUE INDEX "service_category_categoryName_key" ON "service_category"("c
 -- CreateIndex
 CREATE UNIQUE INDEX "vehicle_type_type_key" ON "vehicle_type"("type");
 
--- CreateIndex
-CREATE UNIQUE INDEX "vehicle_vehicleType_key" ON "vehicle"("vehicleType");
-
 -- AddForeignKey
 ALTER TABLE "customer" ADD CONSTRAINT "customer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 

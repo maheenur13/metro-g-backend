@@ -222,6 +222,7 @@ const updateService = async (
   id: string,
   payload: IService
 ): Promise<Service | null> => {
+  const { vehicleIds, ...serviceData } = payload;
   const isExist = await prisma.service.findFirst({
     where: {
       id,
@@ -232,12 +233,54 @@ const updateService = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'service does not exist!');
   }
 
-  return await prisma.service.update({
-    where: {
-      id,
-    },
-    data: payload,
+  const updatedService = await prisma.$transaction(async transactionClient => {
+    const serviceResult = await transactionClient.service.update({
+      where: {
+        id,
+      },
+      data: serviceData,
+    });
+
+    const currentServiceVehicles =
+      await transactionClient.serviceVehicle.findMany({
+        where: { serviceId: serviceResult.id },
+      });
+    if (vehicleIds.length > currentServiceVehicles.length) {
+      const newlyAddedVehicles = vehicleIds.filter(item1 =>
+        currentServiceVehicles.some(item => item.vehicleId !== item1.vehicleId)
+      );
+      await asyncForEach(
+        newlyAddedVehicles,
+        async (vehicle: IVehicleRequest) => {
+          await transactionClient.serviceVehicle.create({
+            data: {
+              vehicleId: vehicle.vehicleId,
+              serviceId: serviceResult.id,
+            },
+          });
+        }
+      );
+      // console.log({ newlyAddedVehicles });
+    } else if (vehicleIds.length < currentServiceVehicles.length) {
+      const deletableVehicles = currentServiceVehicles.filter(item1 =>
+        vehicleIds.some(item => item.vehicleId !== item1.vehicleId)
+      );
+
+      await asyncForEach(
+        deletableVehicles,
+        async (vehicle: IVehicleRequest) => {
+          await transactionClient.serviceVehicle.deleteMany({
+            where: {
+              serviceId: serviceResult.id,
+              vehicleId: vehicle.vehicleId,
+            },
+          });
+        }
+      );
+    }
+    return serviceResult;
   });
+  return updatedService;
 };
 
 export const mainService = {

@@ -126,8 +126,8 @@ model Service {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  categoryId String
   category   ServiceCategory @relation(fields: [categoryId], references: [id])
+  categoryId String
 
   orders   Orders[]
   bookings Bookings[]
