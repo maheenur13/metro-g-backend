@@ -28,6 +28,7 @@ const mainServiceCreateSchema = z.object({
       )
     ),
     rating: z.number().optional(),
+    specification: z.string().optional(),
   }),
 });
 const mainServiceUpdateSchema = z.object({
@@ -39,6 +40,7 @@ const mainServiceUpdateSchema = z.object({
     categoryId: z.string().optional(),
     vehicleId: z.string().optional(),
     rating: z.number().optional(),
+    specification: z.string().optional(),
   }),
 });
 

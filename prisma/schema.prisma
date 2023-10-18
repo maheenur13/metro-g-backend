@@ -114,14 +114,15 @@ model Vehicle {
 }
 
 model Service {
-  id          String  @id @default(uuid())
-  title       String
-  details     String
-  description String
-  price       Int
-  rating      Int     @default(0)
-  imageUrl    String?
-  published   Boolean @default(true)
+  id            String  @id @default(uuid())
+  title         String
+  details       String
+  description   String
+  price         Int
+  rating        Int     @default(0)
+  imageUrl      String?
+  published     Boolean @default(true)
+  specification String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
