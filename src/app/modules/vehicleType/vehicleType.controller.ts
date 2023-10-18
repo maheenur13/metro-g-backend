@@ -39,8 +39,8 @@ const getSingleVehicleType = catchAsync(async (req: Request, res: Response) => {
 });
 const updateVehicleType = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { categoryName } = req.body;
-  const result = await vehicleTypeService.updateVehicleType(id, categoryName);
+  const typeData = req.body;
+  const result = await vehicleTypeService.updateVehicleType(id, typeData);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

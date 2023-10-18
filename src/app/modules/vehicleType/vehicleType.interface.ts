@@ -5,5 +5,5 @@ export type IVehicleTypeFilterRequest = {
 };
 
 export type IVehiclesPayload = {
-  type: 'BIKE' | 'CAR';
+  type: string;
 };
