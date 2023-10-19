@@ -157,10 +157,17 @@ model ServiceVehicle {
 }
 
 model Bookings {
-  id            String        @id @default(uuid())
-  bookingDate   DateTime      @default(now())
-  deliveryDate  DateTime
-  paymentStatus PaymentStatus
+  id               String        @id @default(uuid())
+  bookingDate      DateTime      @default(now())
+  serviceAvailDate DateTime
+  serviceAvailTime DateTime
+  paymentStatus    PaymentStatus @default(PENDING)
+  orderPlaceAt     OrderPlace
+  address          String?
+  phoneNumber      String
+  total            Int
+  bookingStatus    BookingStatus @default(PENDING)
+  addiotionalInfo  String?
 
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id])
@@ -169,12 +176,23 @@ model Bookings {
   service   Service @relation(fields: [serviceId], references: [id])
 
   vehicleId String
-  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+  vehicle    Vehicle  @relation(fields: [vehicleId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("bookings")
+}
+
+enum OrderPlace {
+  SERVICE_POINT
+  AT_HOME
+}
+
+enum BookingStatus {
+  PENDING
+  COMPLETE
+  REJECT
 }
 
 model Review {

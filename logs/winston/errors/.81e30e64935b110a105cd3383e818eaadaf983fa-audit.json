@@ -1,0 +1,50 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\.81e30e64935b110a105cd3383e818eaadaf983fa-audit.json",
+    "files": [
+        {
+            "date": 1697723947216,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-19-10-19-error.log",
+            "hash": "70b29dc24fef2983f7aa4ea5e958c02a5b901d346df33edc2f9a83c35bb90a23"
+        },
+        {
+            "date": 1697725181632,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-19-10-20-error.log",
+            "hash": "91d1cd069715502d133727d65f48039df353375ab006a6c49ae89dd77c407d70"
+        },
+        {
+            "date": 1697734543616,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-19-10-22-error.log",
+            "hash": "31059487c7c51a9fb2a7fd33b98f4d155acb1efb58f8bd4df3866ecb6c97e1e2"
+        },
+        {
+            "date": 1697735581184,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-19-10-23-error.log",
+            "hash": "a7bf9fee54d6be4e2a56cf75315cedf771339be85ad7099de33dfec4ec7c05e9"
+        },
+        {
+            "date": 1697739008659,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-20-10-00-error.log",
+            "hash": "e8f439339973d69425969e32a638824db1369f1d3be14827ef70cba85b4c0b67"
+        },
+        {
+            "date": 1697746259450,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-20-10-02-error.log",
+            "hash": "30e1280a3b62f01c001451f29d2651febc75b0cf9c4eedab3ef14064ee2b95a0"
+        },
+        {
+            "date": 1697751720450,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-20-10-03-error.log",
+            "hash": "d1a6bf015c8889e4dcee4f31f961d216061764f66f3058f1a36a299d6f5b2319"
+        },
+        {
+            "date": 1697753355131,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\errors\\phu-2023-20-10-04-error.log",
+            "hash": "eefbb934553ff4a24452d846f747e21dd7f52d8e09a249b38521f0ce15c5c1da"
+        }
+    ],
+    "hashType": "sha256"
+}

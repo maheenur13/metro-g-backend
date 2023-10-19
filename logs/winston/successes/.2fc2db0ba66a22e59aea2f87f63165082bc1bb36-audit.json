@@ -1,0 +1,50 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\.2fc2db0ba66a22e59aea2f87f63165082bc1bb36-audit.json",
+    "files": [
+        {
+            "date": 1697723947206,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-19-10-19-success.log",
+            "hash": "3b4e2fba23e46c4e68cf715ed0ebb47bd22c5dc5660b893630dac4ebf9912557"
+        },
+        {
+            "date": 1697725181613,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-19-10-20-success.log",
+            "hash": "22c7811951a24ee5a6268b9b7aadb6d392666ff229834d07650231129dbc9d84"
+        },
+        {
+            "date": 1697734543602,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-19-10-22-success.log",
+            "hash": "7df18b63efdbf238cd81d3e1f5419ee8c4e922c879180b2b9a211e8f84ffaf77"
+        },
+        {
+            "date": 1697735581169,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-19-10-23-success.log",
+            "hash": "a5be10a1246623babe0dc48fdf148c14e0d446773e81f39dea4bd3be329ace3b"
+        },
+        {
+            "date": 1697739008644,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-20-10-00-success.log",
+            "hash": "5cee8e1d90f1eedd6ac65ad80933b5bddf863bb52b2c0c614c5a665eab10058a"
+        },
+        {
+            "date": 1697746259436,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-20-10-02-success.log",
+            "hash": "3a235169d4adbaa9eccc0e0e9c300c243e7fe137dc42d6585865d8fbd9222ddc"
+        },
+        {
+            "date": 1697751720433,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-20-10-03-success.log",
+            "hash": "c23ba46f944e30facbd0a7655271af6a9df3b45891fe33c214f307ad8ff7eb58"
+        },
+        {
+            "date": 1697753355112,
+            "name": "C:\\Users\\jahidun.nur\\Desktop\\NEXT-COURSE\\ASS 9\\metro-g-backend\\logs\\winston\\successes\\phu-2023-20-10-04-success.log",
+            "hash": "93db4a372e633df077085d1982f646abab9d4032715e9c731f8cadc4b48493d5"
+        }
+    ],
+    "hashType": "sha256"
+}

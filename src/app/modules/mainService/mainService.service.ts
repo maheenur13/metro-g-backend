@@ -22,11 +22,16 @@ const createService = async (
   data: IService,
   file: any
 ): Promise<Service | null> => {
-  const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
+  let uploadedImage = null;
+  if(file) {
+    uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
+  }
+   
   if (uploadedImage?.secure_url) {
     data.imageUrl = uploadedImage.secure_url;
   }
   const { vehicleIds, ...serviceData } = data;
+console.log({serviceData});
 
   const isExist = await prisma.service.findFirst({
     where: {

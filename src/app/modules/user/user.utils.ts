@@ -30,7 +30,7 @@ export const findLastAdminId = async (): Promise<string | undefined> => {
 export const generateCustomerId = async (name: string): Promise<string> => {
   let finalId = (await findLastCustomerId()) || (0).toString().padStart(6, '0');
   finalId =
-    name.toLocaleLowerCase() +
+    name.split(' ').join('-').toLocaleLowerCase() +
     '-' +
     (parseInt(finalId) + 1).toString().padStart(6, '0');
 

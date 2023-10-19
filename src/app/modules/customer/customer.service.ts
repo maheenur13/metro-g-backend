@@ -78,7 +78,9 @@ const getAllCustomer = async (
 };
 const getSingleCustomer = async (id: string): Promise<Customer | null> => {
   const result = await prisma.customer.findUnique({
-    where: { id },
+    where: {
+      userId:id
+    },
   });
   return result;
 };
