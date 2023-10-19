@@ -13,6 +13,7 @@ export type IService = {
   title: string;
   details: string;
   description: string;
+  imageUrl?: string;
   price: number;
   rating: number;
   categoryId: string;

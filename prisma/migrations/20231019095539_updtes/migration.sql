@@ -105,6 +105,7 @@ CREATE TABLE "service" (
     "rating" INTEGER NOT NULL DEFAULT 0,
     "imageUrl" TEXT,
     "published" BOOLEAN NOT NULL DEFAULT true,
+    "specification" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "categoryId" TEXT NOT NULL,

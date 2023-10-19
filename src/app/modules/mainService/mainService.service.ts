@@ -1,6 +1,7 @@
 import { Prisma, Service } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
+import { FileUploadHelper } from '../../../helpers/FileUploadhelpers';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -17,8 +18,16 @@ import {
   IVehicleRequest,
 } from './mainService.interface';
 
-const createService = async (data: IService): Promise<Service | null> => {
+const createService = async (
+  data: IService,
+  file: any
+): Promise<Service | null> => {
+  const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
+  if (uploadedImage?.secure_url) {
+    data.imageUrl = uploadedImage.secure_url;
+  }
   const { vehicleIds, ...serviceData } = data;
+
   const isExist = await prisma.service.findFirst({
     where: {
       OR: [
@@ -48,16 +57,6 @@ const createService = async (data: IService): Promise<Service | null> => {
         });
       });
     }
-
-    //   data: {
-    //     serviceId: service.id,
-    //     vehicleId: vehicleId,
-    //   },
-    //   include: {
-    //     service: true,
-    //     vehicle: true,
-    //   },
-    // });
     return serviceResult;
   });
 
@@ -198,6 +197,8 @@ const getSingleService = async (id: string): Promise<Service | null> => {
           vehicle: true,
         },
       },
+      reviews: true,
+      category: true,
     },
   });
 };

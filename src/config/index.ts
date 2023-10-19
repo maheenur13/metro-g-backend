@@ -4,6 +4,20 @@ import path from 'path';
 
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
+// const envVarsZodSchema = z.object({
+//   NODE_ENV: z.string(),
+//   PORT: z
+//     .string()
+//     .default('3030')
+//     .refine(val => Number(val)),
+//   DATABASE_URL: z.string(),
+
+//   CLOUDINARY_CLOUD_NAME: z.string(),
+//   CLOUDINARY_API_KEY: z.string(),
+//   CLOUDINARY_API_SECRET: z.string(),
+// });
+
+// const envVars = envVarsZodSchema.parse(process.env);
 export default {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
@@ -18,8 +32,9 @@ export default {
     expires_in: process.env.JWT_EXPIRES_IN,
     refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
   },
-  redis: {
-    url: process.env.REDIS_URL,
-    tokenExpiresIn: process.env.REDIS_TOKEN_EXPIRES_IN,
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
   },
 };

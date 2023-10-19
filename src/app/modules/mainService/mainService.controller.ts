@@ -29,7 +29,8 @@ const getSingleService = catchAsync(async (req: Request, res: Response) => {
 });
 const createService = catchAsync(async (req: Request, res: Response) => {
   const data = req.body;
-  const result = await mainService.createService(data);
+  const file = req.file;
+  const result = await mainService.createService(data, file);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
