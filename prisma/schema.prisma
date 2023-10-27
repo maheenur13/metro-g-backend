@@ -159,8 +159,8 @@ model ServiceVehicle {
 model Bookings {
   id               String        @id @default(uuid())
   bookingDate      DateTime      @default(now())
-  serviceAvailDate DateTime
-  serviceAvailTime DateTime
+  serviceAvailDate String
+  serviceAvailTime String
   paymentStatus    PaymentStatus @default(PENDING)
   orderPlaceAt     OrderPlace
   address          String?
@@ -176,7 +176,7 @@ model Bookings {
   service   Service @relation(fields: [serviceId], references: [id])
 
   vehicleId String
-  vehicle    Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
